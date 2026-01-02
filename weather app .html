@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Document</title>
+    <link rel="stylesheet" href="weather app.css">
+</head>
+<body>
+<div class="card">
+    <div class="search">
+        <input type="text" placeholder="Enter City name" spellcheck="false">
+        <button id="searchButton">search</button>
+    </div>
+    <div class="weather">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.TTy24gufab8HqftW7ocdNwHaHa?pid=Api&P=0&h=180" class="weather-icon">
+        <h1 class="temp">22°c</h1>
+        <h2 class="city">New York</h2>
+        <div class="details"></div>
+        <div class="col"></div>
+        <img src="https://tse3.mm.bing.net/th/id/OIP.Tli1i9gPzy3R0Z5sdVRMKQHaHa?pid=Api&P=0&h=180">
+        <div>
+        <p class="humidity">50%</p>
+        <p>Humidity</p>
+        
+        </div>
+        <div class="col">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.BW3mgOnghHrcxQ7XtKfZ4AHaHa?pid=Api&P=0&h=180">
+            <div>
+                <p class="wind">15 km/h</p>
+                <p>Wind speed</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script> 
+    const apikey ="59fb8d2fad7cdf82b97ea345eea89c41";
+
+    const apiurl = "https://api.openweathermap.org/data/2.5/weather?units=metrics&q=";
+
+    const searchBox = document.querySelector(".search input"); 
+    const searchButton = document.querySelector(".search button");
+    async function checkweather(city){
+        const response = await fetch(apiurl + city + `&appid=${apikey}`);
+        var data = await response.json();
+
+        console.log(data);
+
+        document.querySelector(".city").innerHTML = data.name;
+        document.querySelector(".temp").innerHTML = Math.round(data.main.temp)  + "°c";
+        document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+        document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+     }
+     
+
+     searchButton.addEventListener("click", ()=>{
+          checkweather(searchBox.value);
+     })
+
+     
+     
+    
+    
+        
+    
+       
+</script>
+</body>
+</html>
